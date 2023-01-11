@@ -9,7 +9,9 @@ const userSchema = mongoose.Schema(
     Email: { type: String },
     status: { type:String, enum:['active','inactive','frequent'], default:'active' },
     password: { type: String },
-    token:{ type:String }
+    token:{ type:String },
+   // categorys: [{restaurantName:{type: mongoose.Schema.Types.ObjectId,ref: 'restaurant'}}],
+
     
   },
 );

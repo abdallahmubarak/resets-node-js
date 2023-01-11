@@ -1,4 +1,4 @@
-const recipttModel = require(`../model/recipt`);
+const reciptModel = require(`../model/recipt`);
 exports.addRecipt = async function (req, res, next) {
   try {
 
@@ -22,16 +22,17 @@ exports.addRecipt = async function (req, res, next) {
 exports.getReciptById = async function (req, res, next) {
   try {
 
-    const reciptObject = await recipttModel.findById(req.id)        
-    .lean().exec(function (err, results) {
-    if (err) return console.error(err)
-    try {
-        console.log(results)            
-    } catch (error) {
-        console.log("errror getting results")
-        console.log(error)
-    } 
-});
+    const reciptObject = reciptModel.findById(req.id)
+      .lean().exec(function (err, results) {
+        if (err)
+          return console.error(err);
+        try {
+          console.log(results);
+        } catch (error) {
+          console.log("errror getting results");
+          console.log(error);
+        }
+      });
     res.status(200).json({ message: "Recipt Successfully retrived" ,reciptObject});
   } catch (error) {
     res.status(500).json({ message: "catch error requesting an order reset" });
@@ -40,7 +41,7 @@ exports.getReciptById = async function (req, res, next) {
 exports.getAllRecipts = async function (req, res, next) {
   try {
 
-    const reciptObject = await reciptModel.find({userId:req.userId})        
+    const reciptObject =  reciptModel.find({userId:req.userId})        
     .lean().exec(function (err, results) {
     if (err) return console.error(err)
     try {
@@ -69,7 +70,7 @@ exports.getCustomRecipts = async function (req, res, next) {
    }
 //const fromDate = req.fromDate;
 
-    const reciptObject = await reciptModel.find(criteriaObject)       
+    const reciptObject =  reciptModel.find(criteriaObject)       
     .lean().exec(function (err, results) {
     if (err) return console.error(err)
     try {

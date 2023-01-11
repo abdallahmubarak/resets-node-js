@@ -1,14 +1,15 @@
 const restaurantModel = require(`../model/category`);
 
-module.exports = async (req, res) => {
+exports.addCategory = async (req, res) => {
   try {
-    const {restaurantName,address,contact}= req.body
+    const {restaurantName,address,contact,categoryImg}= req.body
     const restaurant = await restaurantModel.findOne({restaurantName}) 
     if (restaurant) {
+
         res.status(500).json({ message: " restaurant already added" });
     } else {
-        await restaurantModel.insertMany({restaurantName,address,contact});
-        res.status(201).json({ message: "one restaurant added" });
+        await restaurantModel.insertMany({restaurantName,address,contact,categoryImg});
+        res.status(201).json({ message: `one restaurant added` });
     }
 
   } catch (error) {
