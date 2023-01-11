@@ -22,7 +22,7 @@ exports.addRecipt = async function (req, res, next) {
 exports.getReciptById = async function (req, res, next) {
   try {
 
-    const reciptObject = await reciptModel.findById(req.id)        
+    const reciptObject = await recipttModel.findById(req.id)        
     .lean().exec(function (err, results) {
     if (err) return console.error(err)
     try {
