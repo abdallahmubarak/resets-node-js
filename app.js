@@ -2,6 +2,8 @@ const express = require(`express`)
 const app = express()
 const mongoose = require(`mongoose`)
 const port = 3000 || process.env.port
+
+require('dotenv').config()
 app.use(express.json())
 app.use(require(`./router/router`))
 

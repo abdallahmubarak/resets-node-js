@@ -10,7 +10,9 @@ const userSchema = mongoose.Schema(
     status: { type:String, enum:['active','inactive','frequent'], default:'active' },
     password: { type: String },
     token:{ type:String },
-   // categorys: [{restaurantName:{type: mongoose.Schema.Types.ObjectId,ref: 'restaurant'}}],
+    restaurants: [{restaurant:{type: mongoose.Schema.Types.ObjectId,ref: 'restaurant'}}],
+    products: [{product:{type: mongoose.Schema.Types.ObjectId,ref: 'product'}}],
+
 
     
   },

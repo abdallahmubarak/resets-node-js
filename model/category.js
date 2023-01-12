@@ -2,12 +2,15 @@ const mongoose = require(`mongoose`);
 
 const restaurantSchema = mongoose.Schema(
   {
-    restaurantName: { type: String },
-    address: { type: String},
-    contact: { type: String},
-    categoryImg: { type: String,default:''},
-   // user: [{user:{type: mongoose.Schema.Types.ObjectId,ref: 'user'}}],
-
+    restaurantName: { type: String,require:true },
+    address: { type: String,require:true},
+    contact: { type: String,require:true},
+    categoryImg: { type: String,require:true},
+    //user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    }
   }
 );
 
