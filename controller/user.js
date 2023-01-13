@@ -12,9 +12,9 @@ exports.postRegister = async (req, res) =>
  {
 
     try {
-      const { userName, Gender, Email, password ,dateOfBirth,status} = req.body;
+      const { userName, gender, email, password ,dateOfBirth,status} = req.body;
 
-      if (!(userName, Gender, Email, password ,dateOfBirth,status)) {
+      if (!(userName, gender, email, password ,dateOfBirth,status)) {
       res.status(400).send("All input is required");
     }
     const oldUser = await userModel.findOne({ Email });
@@ -26,34 +26,34 @@ exports.postRegister = async (req, res) =>
 
       const user = await userModel.create({
         userName,
-        Gender,
-        Email: Email.toLowerCase(),
+        gender,
+        email: email.toLowerCase(),
         dateOfBirth,
         status,
         password: encryptedPassword,
       });
       const token = jwt.sign(
-        { user_id: user._id, Email },
+        { user_id: user._id, email },
         "shhhh",
         {
-          expiresIn: "2h",
+          expiresIn: "24h",
         }
       );
       
       user.token = token;
       res.status(200).send({ user, message:"user is succes register"})
     } catch (err) {
-      res.status(401).send({err ,message :"error register"});
+      res.status(401).send({err ,message :"error in registeration"});
     } 
   }
   exports.postLogin=async(req,res)=>{
   try {
-        const { Email, password } = req.body;
+        const { email, password } = req.body;
 
-    if (!(Email && password)) {
+    if (!(email && password)) {
       res.status(400).send("All input is required");
     }
-    const user = await userModel.findOne({ Email });
+    const user = await userModel.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
 
@@ -61,18 +61,18 @@ exports.postRegister = async (req, res) =>
         { user_id: user._id},
         'shhhh',
         {
-          expiresIn: "2h",
+          expiresIn: "24h",
         }
       );
       user.token = token;
       user.save()
       res.status(200).send({ user, message:"user is succes login"})
     }else{
-      res.status(500).send({  message:"password wrong"})
+      res.status(500).send({  message:"wrong password"})
 
     }
   } catch (err) {
-    res.status(400).send({ err, message:"user invalid"})
+    res.status(400).send({ err, message:"invalid user"})
   }
 };
 
@@ -88,7 +88,7 @@ exports.postSignOut=async(req,res)=>{
       }
     });
   } catch (error) {
-    res.status(400).send({ error, message:"user is error signout"})
+    res.status(400).send({ error, message:"logout error"})
   }
 };
 
