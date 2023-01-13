@@ -17,7 +17,7 @@ exports.postRegister = async (req, res) =>
       if (!(userName, gender, email, password ,dateOfBirth,status)) {
       res.status(400).send("All input is required");
     }
-    const oldUser = await userModel.findOne({ Email });
+    const oldUser = await userModel.findOne({ email });
 
     if (oldUser) {
       return res.status(409).send("User Already Exist. Please Login");
