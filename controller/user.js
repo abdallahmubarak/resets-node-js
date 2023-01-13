@@ -56,9 +56,9 @@ exports.postRegister = async (req, res) =>
     const user = await userModel.findOne({ Email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      
+
       const token = jwt.sign(
-        { user_id: user._id, Email },
+        { user_id: user._id},
         'shhhh',
         {
           expiresIn: "2h",
@@ -67,6 +67,9 @@ exports.postRegister = async (req, res) =>
       user.token = token;
       user.save()
       res.status(200).send({ user, message:"user is succes login"})
+    }else{
+      res.status(500).send({  message:"password wrong"})
+
     }
   } catch (err) {
     res.status(400).send({ err, message:"user invalid"})
