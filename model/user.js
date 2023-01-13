@@ -2,14 +2,14 @@ const mongoose = require(`mongoose`);
 
 const userSchema = mongoose.Schema(
   {
-    userName: { type: String },
-    creationAt: { type: Date ,default:Date.now()},
-    Gender:  { type:String ,enum:['male','female','others']},
-    dateOfBirth: { type: String },
-    Email: { type: String },
-    status: { type:String, enum:['active','inactive','frequent'], default:'active' },
-    password: { type: String },
-    token:{ type:String },
+    userName: { type: String,require:true },
+    creationAt: { type: Date ,default:Date.now(),require:true},
+    Gender:  { type:String ,enum:['male','female','others'],require:true},
+    dateOfBirth: { type: String ,require:true},
+    Email: { type: String ,require:true},
+    status: { type:String, enum:['active','inactive','frequent'], default:'active',require:true },
+    password: { type: String ,require:true},
+    token:{ type:String ,require:true},
     restaurants: [{restaurant:{type: mongoose.Schema.Types.ObjectId,ref: 'restaurant'}}],
     products: [{product:{type: mongoose.Schema.Types.ObjectId,ref: 'product'}}],
 

@@ -2,9 +2,9 @@ const mongoose = require(`mongoose`);
 
 const productSchema = mongoose.Schema(
   {
-    productName: { type: String },
-    price: { type: Number },
-    vendorImg: { type: String,default:''}
+    productName: { type: String ,require:true},
+    price: { type: Number,require:true },
+    vendorImg: { type: String,default:'vendor image',require:true}
 
   }
 );
