@@ -31,7 +31,7 @@ app.post(`/addVendor`,uploadVendor.single('img'),vendorController.addVendor)
 
 // Product Routers
 
-app.get('/myRecipts',auth,reciptContoller.getCustomRecipts)//1
+app.get('/myRecipts',auth,reciptContoller.getAllRecipts)//1
 app.get('/reciptById',auth,reciptContoller.getReciptById)//1
 app.get('/customRecipt',auth,reciptContoller.getCustomRecipts)// only date
 app.delete('/deleteRecipt',auth,reciptContoller.deleteRecipt)//1
