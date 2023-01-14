@@ -4,14 +4,16 @@ exports.addRecipt = async function (req, res, next) {
 
     const reciptObject = await reciptModel.insertMany({
       //need to add a validation for body inputs
-      vendorId: req.body.id,
+      serialNumber:req.body.serialNumber,
+      vendor: req.body.id,
       category: req.body.category,
       tax: req.body.tax,
       service: req.body.service,
       amount: req.body.amount,
+      totalAmount: req.body.amount,
       status:"ACTIVE",
       userId: req.userId,
-      resetDetails: req.body.reciptDetails,
+      resetDetails: req.body.items,
     });
     res.status(201).json({ message: "Recipt Successfully Inserted" ,reciptObject});
   } catch (error) {

@@ -1,14 +1,13 @@
 const mongoose = require(`mongoose`);
 
-const productSchema = mongoose.Schema(
+const vendorSchema = mongoose.Schema(
   {
-    productName: { type: String ,require:true},
-    price: { type: Number,require:true },
+    name: { type: String ,require:true},
     vendorImg: { type: String,default:'vendor image',require:true}
 
   }
 );
 
-const productModel = mongoose.model("product", productSchema);
+const vendorModel = mongoose.model("vendor", vendorSchema);
 
-module.exports = productModel;
+module.exports = vendorModel;

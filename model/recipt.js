@@ -3,18 +3,21 @@ const mongoose = require(`mongoose`);
 const reciptSchema = mongoose.Schema(
   {
     creationAt: { type: Date ,default:Date.now()},
-    vendorId: { type: mongoose.Schema.Types.ObjectId, ref: "vendor" },
-    categoryId: { type: "String" },
+    serialNumber:{ type: "String" },
+    vendor: { type: mongoose.Schema.Types.ObjectId, ref: "vendor" },
+    category: { type: "String" },
     amount: { type: Number },
+    totalAmount: { type: Number },
     status: { type: Boolean },
     tax:{ type: Number },
     service:{ type: Number },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-    resetDetails: [
+    items: [
       {
         item: { type: String },
-        count: { type: Number },
+        quantity: { type: Number },
         price: { type: Number },
+        finalPrice: { type: Number }
       },
     ],
   },

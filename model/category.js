@@ -1,20 +1,13 @@
 const mongoose = require(`mongoose`);
 
-const restaurantSchema = mongoose.Schema(
+const categorySchema = mongoose.Schema(
   {
-    restaurantName: { type: String,require:true },
-    address: { type: String,require:true},
-    contact: { type: String,require:true},
-    categoryImg: { type: String,require:true},
-    //user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user'
-    }
+    categoryName: { type: String,require:true },
+    categoryImg: { type: String,require:true}
   }
 );
 
 
-const restaurantModel = mongoose.model("restaurant", restaurantSchema);
+const categoryModel = mongoose.model("category", categorySchema);
 
-module.exports = restaurantModel;
+module.exports = categoryModel;
