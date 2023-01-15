@@ -24,9 +24,9 @@ app.get(`/profile`,auth,userController.getProfile);
 
 // Resturant Routers
 //app.post(`/restaurant`,resturantController)
-app.post(`/addCategory`,auth,uploadCategory.single('img'),categoryController.addCategory)
+app.post(`/addCategory`,auth,uploadCategory.single('file'),categoryController.addCategory)
 //app.get(`/getAllCategories`,categoryController.getAllCategories)
-app.post(`/addVendor`,uploadVendor.single('img'),vendorController.addVendor)
+app.post(`/addVendor`,auth,uploadVendor.single('img'),vendorController.addVendor)
 //app.get(`/getVendorsByCategory`,vendorController.getVendorsByCategory)
 
 // Product Routers

@@ -2,8 +2,11 @@ const mongoose = require(`mongoose`);
 
 const vendorSchema = mongoose.Schema(
   {
-    name: { type: String ,require:true},
-    vendorImg: { type: String,default:'vendor image',require:true}
+    vendorName: { type: String ,require:true},
+    vendorImg: { 
+      type: String,
+      require:true
+    }
 
   }
 );
