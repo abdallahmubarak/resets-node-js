@@ -10,7 +10,21 @@ const storageVendor = multer.diskStorage({
       cb(null, Date.now() + path.extname(file.originalname));
   }
 });
-const uploadVendor = multer({ storage:storageVendor })
+const uploadVendor = multer({ 
+  storage:storageVendor,
+  limits:{ fileSize: 1000000000 },
+    fileFilter: function(req, file, cb){
+        if (
+            file.mimetype === 'image/png' ||
+            file.mimetype === 'image/jpg' ||
+            file.mimetype === 'image/jpeg'
+          ) {
+            cb(null, true);
+          } else {
+            cb(null, false);
+          }
+    }
+ })
  
  
 module.exports = uploadVendor
