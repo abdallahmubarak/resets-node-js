@@ -34,7 +34,7 @@ exports.postRegister = async (req, res) =>
       });
       const token = jwt.sign(
         { user_id: user._id, email },
-        "shhhh",
+        process.env.JWTKEY,
         {
           expiresIn: "24h",
         }
@@ -59,7 +59,7 @@ exports.postRegister = async (req, res) =>
 
       const token = jwt.sign(
         { user_id: user._id},
-        'shhhh',
+        process.env.JWTKEY,
         {
           expiresIn: "24h",
         }
