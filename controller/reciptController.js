@@ -1,37 +1,36 @@
 const reciptModel = require(`../model/recipt`);
 exports.addRecipt = async function (req, res, next) {
   try {
-
+    
     const reciptObject = await reciptModel.insertMany({
       //need to add a validation for body inputs
-      serialNumber:req.body.serialNumber,
-      vendor: req.body.id,
-      category: req.body.category,
+     // serialNumber:req.body.serialNumber,
+      vendor: req.query.vendorId,
+      category: req.query.categoryId,
       tax: req.body.tax,
       service: req.body.service,
       amount: req.body.amount,
       totalAmount: req.body.amount,
       status:"ACTIVE",
-      userId: req.userId,
       items: req.body.items,
     });
-    res.status(201).json({ message: "Recipt Successfully Inserted" ,reciptObject});
+    res.status(201).json({ reciptObject,message: "Recipt Successfully Inserted" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "catch error requesting an order reset" });
   }
 };
 
 exports.getReciptById = async function (req, res, next) {
   try {
-    console.log(req.id);
-    const reciptObject = reciptModel.findById(req.query.id)
+    //const user =req.userId;
+    const reciptId =req.query.id
+    const reciptObject = reciptModel.findById(reciptId)
       .lean().exec(function (err, results) {
         if (err)
           return console.error(err);
         try {
           console.log(results);
-          res.status(200).json({ message: "Recipt Successfully retrived" ,results});
+          res.status(200).json({reciptObject, message: "Recipt Successfully retrived" ,results});
 
         } catch (error) {
           console.log("errror getting results");
@@ -106,6 +105,56 @@ exports.deleteRecipt = async function (req, res, next) {
     } 
 });
     res.status(200).json({ message: "Recipt Successfully retrived" ,reciptObject});
+  } catch (error) {
+    res.status(500).json({ message: "catch error requesting an order reset" });
+  }
+};
+exports.getReciptByCategoryId = async function (req, res, next) {
+  
+  try {
+
+    const currentCategory =req.query.category
+   // console.log(currentCategory)
+    let reciptObject = await reciptModel.findOne({category:currentCategory}).select("_id")
+    //console.log(reciptObject)
+
+    if (reciptObject){
+    const recipt = reciptModel.findById({reciptObject:reciptObject}).populate({
+      path: 'recipt'
+    }
+    ).lean()
+    console.log(recipt)
+    res.status(200).json({recipt, message: "Recipt Successfully retrived" });
+
+
+    
+    }else{
+      res.status(200).json({message: "category in recipt donot have id "});
+
+    }
+  } catch (error) {
+    res.status(500).json({ message: "catch error requesting an order reset" });
+  }
+};
+
+exports.getReciptByVendorId = async function (req, res, next) {
+  try {
+    //const user =req.userId;
+    const vendor =req.query.vendorId
+    const reciptObject = reciptModel.findById(vendor)
+    
+      .lean().exec(function (err, results) {
+        if (err)
+          return console.error(err);
+        try {
+          console.log(results);
+          res.status(200).json({reciptObject, message: "Recipt Successfully retrived" ,results});
+
+        } catch (error) {
+          console.log("errror getting results");
+          console.log(error);
+        }
+      });
   } catch (error) {
     res.status(500).json({ message: "catch error requesting an order reset" });
   }

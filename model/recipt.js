@@ -4,24 +4,13 @@ const reciptSchema = mongoose.Schema(
   {
     creationAt: { type: Date ,default:Date.now(),require:true},
     dateTime: { type: Date ,default:Date.now(),require:true},
-    serialNumber:{ type: "String" ,require:true },
-    vendor: [{
-      vendorId:{type: mongoose.Schema.Types.ObjectId,ref: 'vendor',require:true}
-  }],
-
-    vendor: { name: "String",image:"string" },
-    
-    //category: { name: "String",image:"string" },
-    category: [{
-      categoryId:{type: mongoose.Schema.Types.ObjectId,ref: 'category',require:true}
-  }],
+    //serialNumber:{ type: "String" ,default:,require:true },
 
     amount: { type: Number ,require:true},
     totalAmount: { type: Number ,require:true},
     status: { type: "String",require:true },
     tax:{ type: Number ,require:true},
     service:{ type: Number ,require:true},
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     items: [
       {
         item: { type: String ,require:true},
@@ -30,6 +19,12 @@ const reciptSchema = mongoose.Schema(
         finalPrice: { type: Number,require:true}
       },
     ],
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "user",require:true },
+    vendor:{type: mongoose.Schema.Types.ObjectId,ref: 'vendor',require:true},
+   // vendor: { name: "String",image:"string" },
+    //category: { name: "String",image:"string" },
+    category: {type: mongoose.Schema.Types.ObjectId,ref: 'category',require:true},
+
   },
   {
     timeStamps: true,

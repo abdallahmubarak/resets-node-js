@@ -1,5 +1,8 @@
 
 const app = require(`express`).Router()
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger');
+
 const auth = require(`../middleWare/auth`)
 const uploadCategory = require(`../middleWare/uploadImgCategory`)
 const uploadVendor = require(`../middleWare/uploadimgVendor`)
@@ -32,12 +35,17 @@ app.post(`/addVendor`,auth,uploadVendor.single('img'),vendorController.addVendor
 // Product Routers
 
 app.get('/myRecipts',auth,reciptContoller.getAllRecipts)//1
-app.get('/reciptById',auth,reciptContoller.getReciptById)//1
+app.get('/recipt',auth,reciptContoller.getReciptById)//1
 app.get('/customRecipt',auth,reciptContoller.getCustomRecipts)// only date
-app.delete('/deleteRecipt',auth,reciptContoller.deleteRecipt)//1
+app.delete('/deleteRecipt/:id',auth,reciptContoller.deleteRecipt)//1
 app.post('/addRecipt',auth,reciptContoller.addRecipt)//1
+app.get('/reciptByCategory',auth,reciptContoller.getReciptByCategoryId)//1
+app.get('/reciptreciptByVendor/:vendor',auth,reciptContoller.getReciptByVendorId)//1
 
 //app.get('/getPieChart',auth,reciptAnalysisController)
 //app.get('/getLineChart',auth,reciptAnalysisController)
+
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 module.exports = app
