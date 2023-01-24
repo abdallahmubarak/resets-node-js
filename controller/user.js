@@ -94,14 +94,17 @@ exports.postSignOut=async(req,res)=>{
 
 exports.getProfile=async(req,res)=>{
     try {
-      const user  = await userModel.find();
+      const user =req.token
+      console.log(user) 
+      const profile  = await userModel.findOne(user);
       
       if(!user){
-          return res.json({message:'No user found'})
+          return res.json({profile,message:'user found'})
+      }else{
+        return res.json({message:'No user found'})
+
       }
-      return res.json({
-        user:user              
-      })
+      
       
   } catch (error) {
       return res.json({ error: error });  

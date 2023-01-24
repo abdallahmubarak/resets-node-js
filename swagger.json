@@ -27,13 +27,17 @@
     "application/json"
   ],
   "securityDefinitions": {
-      "Bearer":{
+    "Bearer": {
         "type": "apiKey",
-        "in": "headers",
-        "name": "authorization",
-       "description":"Enter the token with the Bearer"
-      }
-  },
+        "name": "Authorization",
+        "in": "header"
+    },
+    "JWT": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "header"
+    }
+},
   "paths": {
     "/register": {
       "post": {
@@ -115,16 +119,18 @@
     },
     "/profile": {
       "get": {
-        "security":{
-         "Bearer": []
-        },
+        "parameters": [{
+         "name": "Authorization",
+         "in": "header",
+          "type": "string", 
+          "description": "auth token" 
+          }],
         "summary": "view user",
         "tags": [
           "User"
         ],
         "description": " viwe user in system",
-        "parameters": [
-        ],
+        
         "produces": [
           "application/json"
         ],
@@ -132,7 +138,7 @@
           "200": {
             "description": "user view Success",
             "schema": {
-              "$ref": "#/definitions/userRegister"
+              "$ref": "#/definitions/registerUser"
             }
           }
         }
@@ -141,20 +147,37 @@
     "/addCategory": {
       "post": {
         "summary": "category add",
-        "tags": [
-          "Category"
-        ],
+        "tags": ["Category" ],
         "description": "category user in system",
+        "consumes":[ "multipart/form-data" ],
+
         "parameters": [
-          {
-            "name": "category",
-            "in": "body",
-            "description": "category view",
+            {
+            "name": "categoryName",
+            "description": "category name",
+            "paramType": "body",
+            "type": "string",
             "schema": {
               "$ref": "#/definitions/category"
             }
+        },
+          {
+              "name": "File",
+              "description": "The file",
+            "paramType": "formData",
+              "type": "file",
+              "schema": {
+                "$ref": "#/definitions/category"
+              }
+          },{
+            "name": "Authorization",
+         "in": "header",
+          "type": "string", 
+          "description": "auth token" 
           }
-        ],
+         
+      ],
+       
         "produces": [
           "application/json"
         ],
@@ -250,7 +273,7 @@
     },
     "categoryImg": {
       "type": "string"
-    }     
+        }     
 }
 },
 "vendor": {
